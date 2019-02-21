@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     var indexEnd: Double = 0
     var threshold: Double = 0
     var impactValue: Double = 0
-    
+    var winLength: Int = 0
     var timestamp: String = ""
 
     override func viewDidLoad() {
@@ -93,29 +93,46 @@ class ViewController: UIViewController {
     
     // From indexBegin to indexEnd, search data for values that are higher than threshold. Return the first index where data has values that meet this criteria for at least winLength samples.
     func searchContinuityAboveValue() {
-        let array = getSwiftArrayFromPlist(name: "latestSwing")
+        // MARK: - Plan 1
+//        let array = getSwiftArrayFromPlist(name: "latestSwing")
+//
+//        // Filter the rows by Timestamp predicate
+//
+//        // Loop through an array, for rows
+//        array.enumerated().forEach { (index, element) in
+//
+//            // Compare rows by values (column 1)
+//
+//            // Compare rows by values (column 2)
+//
+//            // Compare rows by values (column 3)
+//
+//            // Compare rows by values (column 4)
+//
+//            // Compare rows by values (column 5)
+//
+//            // Compare rows by values (column 6)
+//
+////            print(array)
+//            // Print the rows
+////            print("\(index): \(element)")
+//        }
         
-        // Filter the rows by Timestamp predicate
+        // MARK: - Plan 2
+        let rows = Array(0...1276)
+        let hashMappedRows = rows.hashMap()
         
-        // Loop through an array, for rows
-        array.enumerated().forEach { (index, element) in
-            
-            // Compare rows by values (column 1)
-
-            // Compare rows by values (column 2)
-            
-            // Compare rows by values (column 3)
-            
-            // Compare rows by values (column 4)
-            
-            // Compare rows by values (column 5)
-            
-            // Compare rows by values (column 6)
-            
-//            print(array)
-            // Print the rows
-//            print("\(index): \(element)")
-        }
+        let threshold = 1
+        
+        // returns the index of the item and if all the elements in the array are different, it will work to get the index of the object
+        let indexOfnumToDetect = hashMappedRows[threshold]
+        
+        print(indexOfnumToDetect!) // prints 1
+        
+        // Let's just focus in check if the element is in the array.
+        let criteriaExists = indexOfnumToDetect != "\(1.208984.description)" // if the key does not exist (means the number is not contained in the collection.)
+        print(criteriaExists) // prints true
+        
         searchContinuityAboveValueLbl.text! = "For the latestSwing.csv file, the searchContinuityAboveValue is: \(threshold.description)"
 //        print("For the latestSwing.csv file, the searchContinuityAboveValue is: \(threshold.description)")
     }
@@ -139,5 +156,17 @@ class ViewController: UIViewController {
         
         searchMultiContinuityWithinRangeLbl.text! = "For the latestSwing.csv file, the searchMultiContinuityWithinRange is: \(threshold.description)"
 //        print("For the latestSwing.csv file, the searchMultiContinuityWithinRange is: \(threshold.description)")
+    }
+}
+
+// Creating a "hash map" generic function, extending the Sequence protocol.
+extension Sequence where Element: Hashable {
+    
+    func hashMap() -> [Element: String] {
+        var dict: [Element: String] = [:]
+        for (i, value) in self.enumerated() {
+            dict[value] = i.description
+        }
+        return dict
     }
 }
