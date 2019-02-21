@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2616ACB5221BCD9D00F017F1 /* latestSwing.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2616ACB4221BCD9C00F017F1 /* latestSwing.plist */; };
+		26322E05221E750D0005791F /* mainImage.png in Resources */ = {isa = PBXBuildFile; fileRef = 26322E04221E750D0005791F /* mainImage.png */; };
 		26AE1280221BC3B000502A35 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AE127F221BC3B000502A35 /* AppDelegate.swift */; };
 		26AE1282221BC3B000502A35 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26AE1281221BC3B000502A35 /* ViewController.swift */; };
 		26AE1285221BC3B000502A35 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26AE1283221BC3B000502A35 /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2616ACB4221BCD9C00F017F1 /* latestSwing.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = latestSwing.plist; sourceTree = SOURCE_ROOT; };
+		26322E04221E750D0005791F /* mainImage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mainImage.png; sourceTree = SOURCE_ROOT; };
 		26AE127C221BC3B000502A35 /* DK Challenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DK Challenge.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26AE127F221BC3B000502A35 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		26AE1281221BC3B000502A35 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,9 +60,11 @@
 			children = (
 				26AE127F221BC3B000502A35 /* AppDelegate.swift */,
 				26AE1281221BC3B000502A35 /* ViewController.swift */,
+				2616ACB4221BCD9C00F017F1 /* latestSwing.plist */,
+				26322E04221E750D0005791F /* mainImage.png */,
 				26AE1283221BC3B000502A35 /* Main.storyboard */,
-				26AE1286221BC3B200502A35 /* Assets.xcassets */,
 				26AE1288221BC3B200502A35 /* LaunchScreen.storyboard */,
+				26AE1286221BC3B200502A35 /* Assets.xcassets */,
 				26AE128B221BC3B200502A35 /* Info.plist */,
 			);
 			path = "DK Challenge";
@@ -122,7 +128,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2616ACB5221BCD9D00F017F1 /* latestSwing.plist in Resources */,
 				26AE128A221BC3B200502A35 /* LaunchScreen.storyboard in Resources */,
+				26322E05221E750D0005791F /* mainImage.png in Resources */,
 				26AE1287221BC3B200502A35 /* Assets.xcassets in Resources */,
 				26AE1285221BC3B000502A35 /* Main.storyboard in Resources */,
 			);
@@ -213,7 +221,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -268,7 +276,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
