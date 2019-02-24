@@ -1,7 +1,7 @@
 # DK-Coding-Challenge
 
 <div align="center">
-    <img src="https://github.com/dlr4life/DK-Coding-Challenge/blob/master/DKChallenge/mainImage.png" width="400px"</img> 
+    <img src="https://github.com/dlr4life/DK-Coding-Challenge/blob/master/mainImage.png" width="400px"</img> 
 </div>
 
 # What I've learned from building this project:
