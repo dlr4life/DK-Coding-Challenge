@@ -26,12 +26,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var searchMultiContinuityWithinRangeLbl: UILabel!
     @IBOutlet weak var impactIndexLabel: UILabel!
     
-    var indexBegin: Double = 0
-    var indexEnd: Double = 0
+    var list: Array = [Double]()
+    var indexBegin: Int = 0
+    var indexEnd: Int = 0
     var threshold: Double = 0
-    var impactValue: Double = 0
     var winLength: Int = 0
     var timestamp: String = ""
+    var impactValue: Double = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,10 +40,10 @@ class ViewController: UIViewController {
         // The index at which impact occurs in the supplied data file.
         impactIndexLabel.text = "Index for impact: \(impactValue.description)"
         
-        searchContinuityAboveValue()
-        backSearchContinuityWithinRange()
-        searchContinuityAboveValueTwoSignals()
-        searchMultiContinuityWithinRange()
+        searchContinuityAboveValue(data: list, indexBegin: 0, indexEnd: 1, threshold: 1, winLength: 1267)
+        backSearchContinuityWithinRange(data: list, indexBegin: 0, indexEnd: 1, thresholdLo: 1, thresholdHi: 1, winLength: 1267)
+        searchContinuityAboveValueTwoSignals(data1: list, data2: list, indexBegin: 0, indexEnd: 1, threshold1: 0, threshold2: 1, winLength: 1267)
+        searchMultiContinuityWithinRange(data: list, indexBegin: 0, indexEnd: 1, thresholdLo: 0, thresholdHi: 1, winLength: 1267)
         
 //        getTimestampData(timestamp: "571895")
 //        getTimestampData()
@@ -57,116 +58,65 @@ class ViewController: UIViewController {
     }
     
     // #TESTA - Extract a row of data for a particular value in the timestamp column
-//    func getTimestampData(timestamp: String)->(Array<[String:String]>) {
-//        let array = getSwiftArrayFromPlist(name: "latestSwing")
-//        let namePredicate = NSPredicate(format: "Timestamp = %@", timestamp)
-//
-//        // Loop through an array, for rows
-//        array.enumerated().forEach { (index, element) in
-//
-//            // Print the rows
-//            print("\(index): \(element)")
-//        }
-//
-//        // Loop through the array, for columns
-//        for index in array {
-//            let swingAX = index["AX"] // Assign column 0 to swingAX
-//            let swingAY = index["AY"] // Assign column 0 to swingAY
-//            let swingAZ = index["AZ"] // Assign column 0 to swingAZ
-//            let swingTimestamp = index["Timestamp"] // Assign column 0 to Timestamp
-//            let swingWX = index["WX"] // Assign column 0 to swingWX
-//            let swingWY = index["WY"] // Assign column 0 to swingWY
-//            let swingWZ = index["WZ"] // Assign column 0 to swingWZ
-//
-//            print(swingTimestamp!) // Print out column 0
-//            print(swingAX!) // Print out column 1
-//            print(swingAY!) // Print out column 2
-//            print(swingAZ!) // Print out column 3
-//            print(swingWX!) // Print out column 4
-//            print(swingWY!) // Print out column 5
-//            print(swingWZ!) // Print out column 6
-//        }
-//
-//        print(array)
-//        return [array.filter {namePredicate.evaluate(with: $0)}[0]]
-//    }
+    func getTimestampData(timestamp: String)->(Array<[String:String]>) {
+        let array = getSwiftArrayFromPlist(name: "latestSwing")
+        let namePredicate = NSPredicate(format: "Timestamp = %@", timestamp)
+
+        // Loop through an array, for rows
+        array.enumerated().forEach { (index, element) in
+
+            // Print the rows
+            print("\(index): \(element)")
+        }
+
+        // Loop through the array, for columns
+        for index in array {
+            let swingAX = index["AX"] // Assign column 0 to swingAX
+            let swingAY = index["AY"] // Assign column 0 to swingAY
+            let swingAZ = index["AZ"] // Assign column 0 to swingAZ
+            let swingTimestamp = index["Timestamp"] // Assign column 0 to Timestamp
+            let swingWX = index["WX"] // Assign column 0 to swingWX
+            let swingWY = index["WY"] // Assign column 0 to swingWY
+            let swingWZ = index["WZ"] // Assign column 0 to swingWZ
+
+            print(swingTimestamp!) // Print out column 0
+            print(swingAX!) // Print out column 1
+            print(swingAY!) // Print out column 2
+            print(swingAZ!) // Print out column 3
+            print(swingWX!) // Print out column 4
+            print(swingWY!) // Print out column 5
+            print(swingWZ!) // Print out column 6
+        }
+
+        print(array)
+        return [array.filter {namePredicate.evaluate(with: $0)}[0]]
+    }
     
     // From indexBegin to indexEnd, search data for values that are higher than threshold. Return the first index where data has values that meet this criteria for at least winLength samples.
-    func searchContinuityAboveValue() {
-        // MARK: - Plan 1
-//        let array = getSwiftArrayFromPlist(name: "latestSwing")
-//
-//        // Filter the rows by Timestamp predicate
-//
-//        // Loop through an array, for rows
-//        array.enumerated().forEach { (index, element) in
-//
-//            // Compare rows by values (column 1)
-//
-//            // Compare rows by values (column 2)
-//
-//            // Compare rows by values (column 3)
-//
-//            // Compare rows by values (column 4)
-//
-//            // Compare rows by values (column 5)
-//
-//            // Compare rows by values (column 6)
-//
-////            print(array)
-//            // Print the rows
-////            print("\(index): \(element)")
-//        }
-        
-        // MARK: - Plan 2
-        let rows = Array(0...1276)
-        let hashMappedRows = rows.hashMap()
-        
-        let threshold = 1
-        
-        // returns the index of the item and if all the elements in the array are different, it will work to get the index of the object
-        let indexOfnumToDetect = hashMappedRows[threshold]
-        
-        print(indexOfnumToDetect!) // prints 1
-        
-        // Let's just focus in check if the element is in the array.
-        let criteriaExists = indexOfnumToDetect != "\(1.208984.description)" // if the key does not exist (means the number is not contained in the collection.)
-        print(criteriaExists) // prints true
+    func searchContinuityAboveValue(data: Array<Any>, indexBegin: Int, indexEnd: Int, threshold: Double, winLength: Int) {
         
         searchContinuityAboveValueLbl.text! = "For the latestSwing.csv file, the searchContinuityAboveValue is: \(threshold.description)"
 //        print("For the latestSwing.csv file, the searchContinuityAboveValue is: \(threshold.description)")
     }
     
     // From indexBegin to indexEnd (where indexBegin is larger than indexEnd), search data for values that are higher than thresholdLo and lower than thresholdHi. Return the first index where data has values that meet this criteria for at least winLength samples.
-    func backSearchContinuityWithinRange() {
+    func backSearchContinuityWithinRange(data: Array<Any>, indexBegin: Int, indexEnd: Int, thresholdLo: Double, thresholdHi: Double, winLength: Int) {
         
         backSearchContinuityWithinRangeLbl.text! = "For the latestSwing.csv file, the backSearchContinuityWithinRange is: \(threshold.description)"
 //        print("For the latestSwing.csv file, the backSearchContinuityWithinRange is: \(threshold.description)")
     }
     
     // From indexBegin to indexEnd, search data1 for values that are higher than threshold1 and also search data2 for values that are higher than threshold2. Return the first index where both data1 and data2 have values that meet these criteria for at least winLength samples.
-    func searchContinuityAboveValueTwoSignals() {
-       
+    func searchContinuityAboveValueTwoSignals(data1: Array<Any>, data2: Array<Any>, indexBegin: Int, indexEnd: Int, threshold1: Double, threshold2: Double, winLength: Int) {
+        
         searchContinuityAboveValueTwoSignalsLbl.text! = "For the latestSwing.csv file, the searchContinuityAboveValueTwoSignals is: \(threshold.description)"
 //        print("For the latestSwing.csv file, the searchContinuityAboveValueTwoSignals is: \(threshold.description)")
     }
     
     // From indexBegin to indexEnd, search data for values that are higher than thresholdLo and lower than thresholdHi. Return the the starting index and ending index of all continuous samples that meet this criteria for at least winLength data points.
-    func searchMultiContinuityWithinRange() {
+    func searchMultiContinuityWithinRange(data: Array<Any>, indexBegin: Int, indexEnd: Int, thresholdLo: Double, thresholdHi: Double, winLength: Int) {
         
         searchMultiContinuityWithinRangeLbl.text! = "For the latestSwing.csv file, the searchMultiContinuityWithinRange is: \(threshold.description)"
 //        print("For the latestSwing.csv file, the searchMultiContinuityWithinRange is: \(threshold.description)")
-    }
-}
-
-// Creating a "hash map" generic function, extending the Sequence protocol.
-extension Sequence where Element: Hashable {
-    
-    func hashMap() -> [Element: String] {
-        var dict: [Element: String] = [:]
-        for (i, value) in self.enumerated() {
-            dict[value] = i.description
-        }
-        return dict
     }
 }
