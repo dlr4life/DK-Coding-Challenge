@@ -1,14 +1,24 @@
 # DK-Coding-Challenge
 
-<div align="center">
-    <img src="https://github.com/dlr4life/DK-Coding-Challenge/blob/master/mainImage.png" width="400px"</img> 
-</div>
-
 # What I've learned from building this project:
 - Working with hash tables can be rewarding!
 - Converting .csv files to .plist format
 - Looping through arrays
 - Comparing indices of arrays for common values, above threshold values & below threshold values
+
+# Strategy
+1. Above Value
+- Our Iterable would iterate over data[indexBegin..indexEnd]. Pretty simple.
+- The Predicate could take x as a paramerter and return x > threshold.
+2. Back Search, Within Range
+- data[indexEnd .. indexBegin] could be an Iterable. This could be constructed efficiently, without copying our data.
+- thresholdLo < x < thresholdHi could be our Predicate.
+3. Above Value, Two Signals
+- zip(data1[begin..end], data2[begin..end]), where zip turns two arrays into one, each element a pair.
+- Our Predicate would essentially take the pair (x,y), and it could return x > threshold1 and y > threshold2.
+4. Multi-Continuity, Within Range
+- data[lastWinner..indexEnd] where lastWinner will be explained shortly.
+- thresholdLo < x < thresholdHi.
 
 # Features:
 - Caluclation of searchContinuityAboveValue operation value. (From indexBegin to indexEnd , search data for values that are higher than
@@ -22,4 +32,3 @@ that are higher than threshold2.)
 - Caluclation of searchMultiContinuityWithinRange operation value. (From indexBegin to indexEnd , search data
 for values that are higher than thresholdLo and lower than thresholdHi.)
 - Calculation of the point at which impact happens in this data file
-
