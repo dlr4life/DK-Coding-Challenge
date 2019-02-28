@@ -5,6 +5,7 @@
 - Converting .csv files to .plist format
 - Looping through arrays
 - Comparing indices of arrays for common values, above threshold values & below threshold values
+- Big O Notation - Time Complexity or a High Level Overview of Performance (Examples: Logarithmic Time, Quasilinear Time, Constant Time, Linear Time, Quadratic Time)
 
 # Features:
 - Caluclation of searchContinuityAboveValue operation value. (From indexBegin to indexEnd , search data for values that are higher than
